@@ -11,6 +11,12 @@ pipeline {
         sh "echo 'Test'"
       }
     }
+    stage('Security scan'){
+      steps {
+        sh "npm install snyk@latest -g"
+        sh "snyk test"
+      }
+    }
     stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
