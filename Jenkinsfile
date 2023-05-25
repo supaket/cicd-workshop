@@ -13,11 +13,10 @@ pipeline {
     }
     stage('Security scan'){
       steps {
-        echo 'Snyk testing...'
-        snykSecurity(
-          snykInstallation: 'snyk24',
-          snykTokenId: 'snyk-api-token',
-        )
+        withCredentials([string(credentialsId: 'snyk-api-token', variable: 'snykToken')]){
+        sh "snyk auth ${snykToken}"
+        sh "snyk test"
+        }
       }
     }
     stage('Docker Push') {
