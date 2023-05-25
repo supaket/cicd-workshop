@@ -13,7 +13,8 @@ pipeline {
     }
     stage('Test'){
        steps {
-        sh "echo 'Test'"
+        sh "npm i"
+        sh "npm run test"
       }
     }
     stage('Security scan'){
