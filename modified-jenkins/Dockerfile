@@ -13,6 +13,6 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 	&& chmod +x ./kubectl \
 	&& mv ./kubectl /usr/local/bin/kubectl
 
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
-
-RUN npm install snyk@latest -g
+RUN curl https://static.snyk.io/cli/latest/snyk-macos -o snyk &&\
+  chmod +x ./snyk &&\
+  mv ./snyk /usr/local/bin/
