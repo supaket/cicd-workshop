@@ -16,6 +16,11 @@ pipeline {
         sh "npm i"
         sh "npm run report-test"
       }
+       post {
+        always {
+            junit '**/junit.xml'
+        }
+      }
     }
     stage('Security scan'){
       steps {
