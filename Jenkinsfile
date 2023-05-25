@@ -13,8 +13,11 @@ pipeline {
     }
     stage('Security scan'){
       steps {
-        sh "npm install snyk@latest -g"
-        sh "snyk test"
+        echo 'Snyk testing...'
+        snykSecurity(
+          snykInstallation: 'snyk24',
+          snykTokenId: 'snyk-api-token',
+        )
       }
     }
     stage('Docker Push') {
