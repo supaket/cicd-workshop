@@ -17,9 +17,6 @@ pipeline {
         sh "npm run report-test"
       }
        post {
-        always {
-            junit '**/junit.xml'
-        }
         success {
           slackSend(message: "Pipeline is successfully completed.")
         }
