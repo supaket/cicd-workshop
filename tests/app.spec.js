@@ -7,4 +7,10 @@ describe('GET /healthcheck', () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({ status: 'UP' });
   });
+
+  it('responds with status: UP', async () => {
+    const response = await request(app).get('/getpodinfo');
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({ status: 'UP' });
+  });
 });
