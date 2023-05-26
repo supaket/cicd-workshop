@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  
+  triggers {
+    pollSCM '* * * * *'
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        sh "docker build -t supaket/podinfo:${env.BUILD_NUMBER} ."
+      }
+    }
+    stage('Security scan long run'){
+      steps {
+        withCredentials([string(credentialsId: 'snyk-api-token', variable: 'snykToken')]){
+        sh "snyk auth ${snykToken}"
+        sh "snyk test"
+        sh "snyk monitor --all-projects"
+        sh "sleep 5m"
+        }
+      }
+     }
+    }
+}

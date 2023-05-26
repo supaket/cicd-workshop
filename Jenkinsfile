@@ -4,7 +4,6 @@ pipeline {
   triggers {
     pollSCM '* * * * *'
   }
-
   stages {
     stage('Build') {
       steps {
@@ -15,15 +14,6 @@ pipeline {
        steps {
         sh "npm i"
         sh "npm run report-test"
-      }
-    }
-    stage('Security scan'){
-      steps {
-        withCredentials([string(credentialsId: 'snyk-api-token', variable: 'snykToken')]){
-        sh "snyk auth ${snykToken}"
-        sh "snyk test"
-        sh "snyk monitor --all-projects"
-        }
       }
     }
     stage('Release') {
