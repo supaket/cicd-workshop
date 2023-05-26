@@ -1,0 +1,14 @@
+pipeline {
+  agent any
+  
+  triggers {
+    pollSCM '* * * * *'
+  }
+  stage('scale jenkins') {
+      steps {
+          withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh 'kubectl scale --replicas=2 deployment jenkins'
+        }
+      }
+  }
+}
